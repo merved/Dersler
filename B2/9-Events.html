@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+<!-- OLAYLAR VE METOT KULLANIMLARI
+
+OLAYLAR: Sayfa içerisinde yapmak istediğimiz işlemlerin belirli bir durumda gerçekleşmesini  sağlayan işlemleri
+ifade eder bir butona tıklanması durumunda bi kod çalıştırma işlemini gerçekleştirebiliriz
+-->
+</head>
+<body>
+
+<div id="app">
+<!-- Sayfada bir buton oluşturulur -->
+<!--event tanımlama işlemi v-on ile yapıyoruz -->
+<div class ="alert alert-success">{{mesaj}}</div>
+<!--click olayı çalıştıgı anda hangi metodu devreye alacak v-on:click="karsila" karsila metot ismi  -->
+<button class="btn btn-sm btn-info"  v-on:click="karsila" >Karşıla</button>
+<!--Bu butona basıldıgı anda ekranda hoşgeldin şeklinde bi yazı yazmasını istiyorum -->
+  <button class="btn btn-sm btn-danger"  v-on:click="ugurla" >UGURLA</button>
+
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+  const mrv= new Vue({
+    el:'#app',
+    name:'uzaktan kurs',
+
+    data: {
+      mesaj : 'Merhaba Merve!'
+    },
+    methods:{
+      karsila(){//fonksiyon
+        this.mesaj= 'HOŞ BULDUK';
+      },
+      ugurla(){
+        this.mesaj="güle güle";
+      }
+    }
+  })
+</script>
+</body>
+</html>

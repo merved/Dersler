@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class ="p-5">
+
+<div id="app">
+  <!--dinamik hale getirelim burdaki secStyle degerini bi form elemanı ile değiştirmesini sağlama-->
+  <select v-model ="secStyle"  class="form-control">
+    <!-- burdaki optiyonlardaki değeri otomatik olarak oraya yansıtacak-->
+    <option>alert alert-success</option>
+    <option>alert alert-warning</option>
+    <option>alert alert-info</option>
+  </select>
+
+  <div :class="secStyle">Merhaba</div>
+  <hr>
+  <div :class="[bgBasarili, yazBeyaz, 'jumbotron' ]">Merhabaa</div>
+<!-- Stil tanımını belirli bi koşula göre uygulama-->
+  <hr>
+  <!--aşağıdaki form yapısı kullanılır. -->
+<div class="form-group row">
+  <label for="isim" class="col-sm-2">İsim</label>
+  <div class ="col-sm-10">
+    <input type ="text" id="isim" v-model="kullanici.isim"
+           :class="{'form-control is valid': kullanici.isim, 'form-control is-invalid' : !kullanici.isim }">
+    <!--Eğer kullanıcı isim degerini girmezse yuk. metin alanını kırmızı ,isim girese yeşil göstercek-->
+    <!-- :class="{'form-control is valid : kullanici.isim '}
+    açıklama form-control =>uygulanacak stil
+    is valid => form elemanını ekranda yeşil olarak gösterir.
+    kullanici.isim => koşul kullanıcının isim degeri varsa koşulu sağlamış oluyor
+      kullanici.isim != '' yada  kullanici.isim != null şeklinde de yazılabilir
+      2.koşul
+      'form-control is-invalid' : !kullanici.isim  değeri yoksa stili çalıştır
+ -->
+    <span>{{kullanici.isim.length}}</span>
+  </div>
+</div>
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+  const mrv= new Vue({
+    el:'#app',
+    name:'uzaktan kurs',
+
+    data: {
+
+      secStyle: 'alert alert-success',
+      bgBasarili: 'bg-success',
+      yazBeyaz:  'text-white',
+      //nesne oluşturma
+      kullanici: {
+        id:1,
+        isim:'Merve',
+        rol:'admin'
+      }
+    }
+  })
+</script>
+</body>
+</html>

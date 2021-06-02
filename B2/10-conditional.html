@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class="p-5">
+
+<div id="app">
+  <!--div elemanını bir koşula göre göstermek istersek
+  isVisibleDetaylar koşul ismi verilir .
+  bu koşul data içerisinde ayarlanabilir.
+  true diye atanırsa => bu koşulun sağlanması demek ..yazı kısmı görürnür
+  v-if =>yazılan koşula göre bu işlemi gerçekleştirir-->
+
+  <!--tıklandıgı zaman gostergizle diye metodu çağırcak -->
+  <!--ismi input içerisinde gösterme-->
+  <input type = "text" class="form-control" v-model="isim">
+<span v-if="isim.length > 0">{{ isim.length }} karakter</span>
+<!-- isim uzunlugunu isim.length i sıfırdan büyükse göstercek-->
+  <hr>
+  <div v-if="isVisibleDetaylar">
+    Karadeniz Bölgesi'nin Doğu
+    Karadeniz bölümünde yer alan bir
+    şehirdir. Tarihi Pontus bölgesinin
+    doğusunda kalan Rize, Osmanlı döneminde
+    Lazistan Sancağı'nda yer almıştır.
+    Günümüzde Türkiye'ye bağlıdır.
+  </div>
+
+<!--v-show== ekrandaki bir şeyi belirli bi koşula göre göstermeyi sağlar-->
+<!--v-show un , v-if den farkı -->
+<div v-show ="isVisibleDetaylar">Karadeniz Bölgesi'nin Doğu
+  Karadeniz bölümünde yer alan bir
+  şehirdir. Tarihi Pontus bölgesinin
+  doğusunda kalan Rize, Osmanlı döneminde
+  Lazistan Sancağı'nda yer almıştır.
+  Günümüzde Türkiye'ye bağlıdır
+</div>
+  <button class="btn btn-primary" @click="gostergizle">GösterGizle</button>
+  <hr>
+  <select v-model = "kullaniciTipi" class="form-control">
+  <option value="" >Seçiniz</option>
+  <option>Müşteri</option>
+  <option>Yönetici</option>
+  </select>
+  <div v-if="kullaniciTipi === 'Müşteri'">
+    <h1> Müşteri Bilgileri</h1>
+...
+  </div>
+  <div v-else-if="kullaniciTipi === 'Yönetici'">
+    <h1> Yönetici Bilgileri</h1>
+    ...
+  </div>
+  <!--üstteki bloklara giremezse  -->
+  <div v-else>
+    <h1> Diğer Bilgileri</h1>
+    ...
+  </div>
+
+  <!--yukarıdan seçilen kullanıcı tipi müşteri ise müşteri ile ilgili ayaraları ekranda göstercez
+   yönetici ise yönetici ile ilgili ayarları göstercez-->
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+  const mrv= new Vue({
+    el:'#app',
+    name:'uzaktan kurs',
+
+    data: {
+      isVisibleDetaylar: true,
+      isim:'merve',
+      kullaniciTipi:''
+    },
+    methods:{
+    gostergizle(){
+      /*isVisibleDetaylar ı tam tersi yapıcak*/
+      this.isVisibleDetaylar = !this.isVisibleDetaylar;
+
+    }}
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body>
+
+<div id="app">
+  <h1>Kullanıcılar</h1>
+  <hr>
+  <!--Bir tablo olarak göstermek istersek -->
+  <table class="table  table-bordered  table-hover">
+    <tr class="bg-success text-white">
+      <th>İsim</th>
+    </tr>
+
+    <tr v-for="kullanici in kullanicilar">
+      <td>{{kullanici}}</td>
+
+    </tr>
+  </table>
+
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+  constmrv= new Vue({
+    el:'#app',
+    name:'uzaktan kurs',
+
+    data: {
+      kullanicilar :  ['merve', 'nur', 'ceyda']
+    }
+  })
+</script>
+</body>
+</html>

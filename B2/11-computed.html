@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class="p-5">
+
+<div id="app">
+  <!--v-model ile dinamikleştirdik  -->
+  <!--ad ve soyad iki yönlü hale getirildi
+   yani ekrandan değiştirdiğim anda otomatik olarak
+   burda computed properties olarak tanımladıgım yeri de
+    değiştirmiş olacaktır-->
+  <input v-model="ad"  class="form-control">
+  <input v-model="soyad" class="form-control">
+  <p>{{ adsoyad }}</p> <!--fonksiyon çağırcak -->
+  <!--urun fiyatını dinamik olması adına model haline getirilir
+  urun fiyatı ne girersem hesaplanmış olarak(kdv) ekranda yazdıracak-->
+  <input v-model = "urun_fiyati" class="form-control">
+  <p>{{ urun_kdv_fiyati }}</p> <!--fonksiyon çağırcak -->
+
+
+
+
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+  const mrv= new Vue({
+    el:'#app',
+    name:'uzaktan kurs',
+
+    data: {
+     /*Data içerisinde tanımladıgımız degerleri kullanarak örneğin
+     ben bu 2 degeri kullanarak yeni bir değişken yada yeni bi özellik oluşturabilirim
+      bunun için computed diye bi alan öncelikle oluşturuyoruz*/
+
+      ad:'merve',
+      soyad: 'demirci',
+      urun_fiyati: 12
+    },
+    computed:{
+      /*ad ve soyadı bir arada oldugunu aşagıdaki gibi bi
+      * fonksiyon tanımlıyoruz
+      * computed özellikler data içerisinde yer
+      * alan verileri kullanarak yeni bi deger elde etmeyi sağlar
+      * önemli
+      * adsoyad() ı çağırdıgım yerlerde bu merve yi alacak boşluk sonra demirci yi alacak.adsoyad
+      * ekranda yazdırılacak
+      * */
+      adsoyad(){
+
+        return this.ad + ' ' + this.soyad;
+      },
+      urun_kdv_fiyati(){
+        //yüzde 18 kdv fiyatı şu şekilde hesaplandı
+        return this.urun_fiyati * 18 / 100 ;
+
+      }
+    }
+  })
+</script>
+</body>
+</html>

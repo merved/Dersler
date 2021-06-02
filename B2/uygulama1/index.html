@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/app.css">
+
+</head>
+<body class="p-5">
+<!-- @click="kullaniciYeni">Yeni Kulanıcı butonuna bastıgında  kullaniciModal nasıl gösterilcek-->
+<!-- class="modal fade" tabindex="-1" role="dialog" id="kullaniciModal
+-->
+<div id="app">
+<!-- yeni kullanıcı oluşturmak için lazım olan index içerisindeki butonu oluşturalım-->
+    <!--butona basıldıgı anda bi pencere açılacak bu işlem click eventi ile gerçekleşecek -->
+    <button class="btn btn-info float-right" @click="kullaniciYeni">Yeni Kullanıcı</button>
+
+    <!-- proje-crud => eklenen başlangıc-->
+    <!--modal oluşturma işlemini bootstrap içerisinden oluşturmak gerekiyor
+    bi modal penceresini modal sınıfı ile oluşturabiliyoruz id verildi -->
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="kullaniciModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header"> <!--başlık kısmı  -->
+                    <h5 class="modal-title">Kullanıcı</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!--pencere içeriği oluşturuldu -->
+                    <form @submit.prevent="true">
+                        <div class="form-group row"><!-- form oluşturuldu -->
+                            <label class="col-sm-2 col-form-label">isim</label>
+                            <!-- form içerisinde isim -->
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" v-model="aktifKullanici.isim" placeholder="isim">
+
+                                <!--v-model olarak da aktifKullanici.isim şeklinde tanımlandı -->
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">rol</label>
+                            <div class="col-sm-10">
+                                <!-- -->
+                                <select v-model= "aktifKullanici.rol"  class="form-control">
+                                    <option value="">Seçiniz</option>
+                                    <!-- değer olarak aşğler şeçilebilir -->
+                                    <option>Admin</option>
+                                    <option>User</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!--bu kısımda kaydet isminde buton tanımlandı. butona basıldıgında kullaniciKaydet  de kullanıcı kaydedilir -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" @click="kullaniciKaydet">Kaydet</button>
+                    <!-- kapat butonu bootstrap den hazır alındı-->
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--eklenen bitiş -->
+
+
+    <h1>Kullanıcılar ( {{ kullanicilar.length }}  kullanici  )</h1>
+<hr>
+<!--Bir tablo olarak göstermek istersek 8-arrayDataBinding3-->
+<table class="table  table-bordered  table-hover">
+    <tr class="bg-success text-white">
+        <th>index</th>
+        <th>ıd</th>
+        <th>isim</th>
+        <th>rol</th>
+        <th>işlem</th>
+
+    </tr>
+
+    <tr v-for="( kullanici, index ) in kullanicilar">
+        <td>{{ index }}</td>
+        <td>{{ kullanici.id }}</td>
+        <td>{{ kullanici.isim }}</td>
+        <td>{{ kullanici.rol }}</td>
+        <td>
+
+            <a href ="javascript: " @click="kullaniciSil( index )" class="btn btn-sm btn-danger">
+                <i class="fa fa-trash"></i><!--icon -->
+
+            </a>
+            <a href ="javascript: " @click="kullaniciSil2(kullanici.id)" class="btn btn-sm btn-danger">
+                <i class="fa fa-trash"></i><!--icon -->
+
+            </a>
+            <!--KULLANICI DÜZENLEME-->
+            <a href ="javascript: " @click="kullaniciDuzenle( index )" class="btn btn-sm btn-warning">
+                <i class="fa fa-pencil"></i><!--icon -->
+
+            </a>
+        </td>
+    </tr>
+
+    <!-- v-for="kullanici in kullanicilar  açıklama:
+    kullanicilar dizisindeki her bir objeyi al .
+     aşagıda kullanicidan kasıt objenin bir tanesi yani  {
+              id:1,
+              isim: 'merve',
+              rol: 'Admin'
+            },
+            ,doğal olarak yukarıdaki objenin tamamını alıyoruz-
+            kulla
+                <td>{{kullanici.isim}}</td> İSE kullanıcının İSMİ YAZDIRILIR-->
+
+
+</table>
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<!--jquery ve bootsrap kullanmak için ve modal penceresini kullanmak için -->
+
+<script src ="../../assets/js/vue.js"></script>
+<script src ="../../assets/js/jquery-3.2.1.slim.min.js"></script> <!-- jquery önce gelmeli -->
+<script src ="../../assets/js/bootstrap.min.js"></script>
+<script src="app.js"></script>
+
+
+</body>
+</html>

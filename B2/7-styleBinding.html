@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class ="p-5">
+
+<div id="app">
+  <select v-model ="secStyle"  class="form-control">
+    <option>alert alert-success</option>
+    <option>alert alert-warning</option>
+    <option>alert alert-info</option>
+  </select>
+
+  <div :class="secStyle">Merhaba</div>
+  <hr>
+  <div :class="[bgBasarili, yazBeyaz, 'jumbotron' ]">Merhabaa</div>
+  <hr>
+  <div class="form-group row">
+    <label for="isim" class="col-sm-2">İsim</label>
+    <div class ="col-sm-10">
+      <input type ="text" id="isim" v-model="kullanici.isim"
+             :class="{'form-control is valid': kullanici.isim, 'form-control is-invalid' : !kullanici.isim }">
+      <span>{{kullanici.isim.length}}</span>
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <label  class="col-sm-2">ROL</label>
+    <!--BURDA CLASS ÖZELLİKLERİNE BIND İŞLEMİ YAPILDI -->
+    <div class ="col-sm-10">
+                   <span :class="{ 'badge badge-success': kullanici.rol === 'admin', 'badge badge-warning' : kullanici.rol === 'user' }">
+                 {{ kullanici.rol }}
+                     <!-- kullanicinin rolü admin ise yeşil olarak göstercem-->
+                   </span>
+    </div>
+  </div>
+  <hr>
+  <!-- style ÖZELLİĞİNE DE DOĞRUDAN Bİ STYLE TANIMLAMASI GERÇEKLEŞTİRİLEBİLİR
+  örneğin  <div style ="color: red; font-size: 18px">Merhaba</div> bu şekilde tanımlanan degerlerin data içerisinden çekilerek buraya nasıl uygulanacagı-->
+  <div :style ="styleEx">Merhaba</div>
+
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+  const mrv= new Vue({
+    el:'#app',
+    name:'uzaktan kurs',
+
+    data: {
+
+      secStyle: 'alert alert-success',
+      bgBasarili: 'bg-success',
+      yazBeyaz:  'text-white',
+      //nesne oluşturma
+      kullanici: {
+        id:1,
+        isim:'Merve',
+        rol:'user'
+      },
+      styleEx:{
+        color:'red',
+        //font-size => obje olarak fontSize olarak tanımlanır
+        fontSize: '18px'
+      }
+    }
+  })
+</script>
+</body>
+</html>

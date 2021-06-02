@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body>
+
+<div id="app" class="p-5">
+  <p> {{mesaj}}</p>
+
+  <p v-text="mesaj_html"></p>
+  <p v-html="mesaj_html"></p>
+
+  <hr>
+  <div>
+
+    <label>
+      <input type ="text" v-model="mesaj" class="form-control">
+      <input type ="text" v-model.number="fiyat"  class="form-control">
+      <!-- v-model oluncA ekrandan değiştirince direkt dinamik olArak değişir-->
+<P>KDV TUTAR {{ fiyat * 18 / 100 }}</P>
+      <P>KDV TUTAR {{ (fiyat * 18 / 100 )<5 ? 'KDV DÜŞÜK' : 'KDV YÜSEK'}}</P>
+      <P v-once >KDV TUTAR {{ (fiyat * 18 / 100 )<5 ? 'KDV DÜŞÜK' : 'KDV YÜSEK'}}</P>
+
+      <!-- HESAPLAMA İŞLEMİ YAPILDIKTAN SONRA EKRAN DA SABİT KALMASINI İSTERSEK.. v-once kullanırız. değşikliği 1 kere gösterir.1 daha değişmesini engelleyecektir-->
+
+    </label>
+
+
+  </div>
+
+</div>
+<script src ="../assets/js/vue.js"></script>
+<script>
+  const app= new Vue({
+    el:'#app',
+    name:'uzaktan kurs',
+
+    data: {
+      mesaj : 'Merhaba vue!',
+      mesaj_html: 'Merhaba <b>MERVE</b>',
+      fiyat: 12
+    }
+  })
+</script>
+</body>
+</html>

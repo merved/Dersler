@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--Bootstrap kullanacağımız için dosyaları eklicez link olarak bir alt klasöründeki   -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body>
+<!-- uygulamamızı temel bir etiket üzerinde oluşturabiliriz. bi div elemanı  oluşturup uygulamamın
+tüm içeriğini bunun içerisinde gerçekleştirebiliriz -->
+<div id="app"></div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+    //oluşturulan bu nesne = > const app  diye bi değişkene de atanabilir
+    const mrv= new Vue({
+        <!--burda parametreler veriyoruz..ilk parametremiz uygulamanın gerçekleştirileceği elemanı belirten el özelliği el özelliği ile ,,,ben uygulammı app2 ismindeki div elemanı içerisinde gerçekleştireceğimi söylüyorum  -->
+        el:'#app',
+        name:'uzaktan kurs',
+        //data özelligi : vue uygulamada verileri tutmak için kullanılır.örnegin mesaj içerisinde bir deger tutmuş oluyoruz.uygulama içeriisindeki bi değeri data içerisinde saklıyoruz.
+
+        data: {
+            mesaj : 'Merhaba vue!'
+        }
+    })
+</script>
+</body>
+</html>

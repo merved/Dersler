@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body>
+
+<div id="app">
+ <p> <a v-bind:href="linkSite" v-bind:title="linkAciklama"> {{ linkAciklama }} </a></p>
+  <!--bind işlemin  kısa yolu iki nokta yeterli -->
+  <p> <a :href="linkSite"  :title="linkAciklama"> {{ linkAciklama }} </a></p>
+<hr>
+  <!--id degerini bind etme ve önüne bişey yazmak istersek  id  degeri kurs5 olacaktır -->
+<div
+  :id="'Kurs' + id">
+Kurs {{ id }}</div>
+  <p></p>
+
+</div>
+
+
+<script src ="../assets/js/vue.js"></script>
+<script>
+  const app= new Vue({
+    el:'#app',
+    name:'uzaktan kurs',
+
+    data: {
+     linkSite: 'https://www.yurticikargo.com/',
+      linkAciklama: 'uzaktan kurs',
+      id: 5
+    }
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body>
+
+<div id="app">
+
+  <div class ="alert alert-success">{{mesaj}}</div>
+
+  <button class="btn btn-sm btn-info"  v-on:click="karsila" >Karşıla</button>
+  <button class="btn btn-sm btn-danger"  v-on:click="ugurla" >UGURLA</button>
+  <hr>
+  <!-- uyarı:entera basıldgı anda burda otamatik olrak gönderildi dogal olarak sayfa tekrardan yenilendi
+ entera basıldgı anda formun gönderilmesi engellenmeli @submit.prevent="true" eklenir-->
+<form @submit.prevent="true">
+
+  <div class="form-group row">
+    <label for ="email2"  class="col-sm-3  col-form-label">Email</label>
+    <div class="col-sm-5">
+      <input type ="text" class="form-control"  id= "email2" v-model= "email"
+
+      v-on:keypress.enter= "emailKaydet">
+      <!-- yukarıdakini v-model ile email isimli bi data degerine bağlıyorum -->
+      <!-- mail kısmına mail girildiği anda entera basıldıgı anda ,(yani bi buton olmadan) mail adres kayıt edildi diye uyarı vericez-->
+      <!-- keypress bir tuşa basıldıgı anda
+      keypress.enter="emailKaydet" entera badılgı anda emailkaydet metodu çağrılır-->
+    </div>
+  </div>
+</form>
+</div>
+<script src ="../assets/js/vue.js"></script>
+<script>
+  const mrv= new Vue({
+    el:'#app',
+    name:'uzaktan kurs',
+
+    data: {
+      mesaj : 'Merhaba Merve!',
+      email: '',
+    },
+    methods:{
+      karsila(){//fonksiyon
+        this.mesaj= 'HOŞ BULDUK';
+      },
+      ugurla(){
+        this.mesaj="güle güle";
+      },
+      emailKaydet(){
+        if(this.email !== null)
+          //bir mail adresi girildiği zaman mesaj gönderilcek
+          this.mesaj='email adresiniz kaydedildi';
+
+      }
+    }
+  })
+</script>
+</body>
+</html>

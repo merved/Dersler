@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href=" ../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href=" ../assets/css/app.css">
+
+</head>
+<body>
+
+<div id="app" class="p-40">
+   <span class="badge badge-dark">{{ say }}</span>
+</div>
+
+<script src="../assets/js/vue.js"></script>
+<script>
+  const app= new Vue({
+    el: '#app',
+    name: 'uzaktan kurs',
+    data: {
+      say: 5
+    },
+    created(){
+      console.log('Instance oluştu');
+    },
+    mounted(){
+      console.log("dom'a eklendi.(yani sayfa eklendi)");
+      //sayafaya doma eklendi anda sayı değerini değiştirmiş oluyorum değştirdiğim anda da updated a geçiş olur
+      this.say = Math.floor(Math.random() * 49  ) + 1 ;
+    },
+      //sayafada dom üzerinde bi değişiklik oldugunda çalışmasını istediğimiz kodlar
+    updated(){
+        //bu metoda ne  zaman gelinir
+        //1.yöntem herhangi bi yerde örnegin say: değerinin değişmesini sağlayabilirim
+        //yada syafama buton doyarak botun üzerinden değişmesini de sağlayabilirim
+        console.log('dom güncellendi');
+    },
+      //destroyed uygulama sayafadankaldırıldıgı anda kod yazmayı sağlayacaktır
+destroyed(){
+        console.log('instance silindi.');
+    app.$destroy();//uygulamayı kaldırmayı sağlıyor
+
+}});
+
+  app.$destroy();
+</script>
+</body>
+</html>

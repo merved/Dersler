@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class ="p-5">
+
+<div id="app">
+<!--dinamik hale getirelim burdaki secStyle degerini bi form elemanı ile değiştirmesini sağlama-->
+  <select v-model ="secStyle"  class="form-control">
+    <!-- burdaki optiyonlardaki değeri otomatik olarak oraya yansıtacak-->
+    <option>alert alert-success</option>
+    <option>alert alert-warning</option>
+    <option>alert alert-info</option>
+  </select>
+<!--birden fazla stil özelliğini aynı anda nasıl uygularız -->
+  <!-- secilenStyle hem deger olarak class degerine bağlanıyor.aynı zamanda model olarak da bağlanıyor-->
+  <div :class="secStyle">Merhaba</div>
+  <hr>
+  <!-- birden fazla stil özelliğini köşeli parantez içinde belirtiyoruz-->
+  <div :class="[bgBasarili, yazBeyaz, 'jumbotron' ]">Merhabaa</div>
+  <!--data içindeki seçilen stil  burda bind edildi
+  bind edilen degerler ,,değişken olarak data içerisinde yer alması gerekiyor
+  bazen data içerisinde tranımlama ihtiyacımız olmadan, aynı anda doğrudan bi style özelliğini de yazılabilir
+  örnek "[bgBasarili, yazBeyaz,  'jumbotron' ]"  tek tırnak içine alınır-->
+
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+  const mrv= new Vue({
+    el:'#app',
+    name:'uzaktan kurs',
+
+    data: {
+
+      secStyle: 'alert alert-success',
+      //aşğ 2 tane stil degeri data içerisinde tanımlandı.
+      bgBasarili: 'bg-success',
+      yazBeyaz:  'text-white'
+    }
+  })
+</script>
+</body>
+</html>

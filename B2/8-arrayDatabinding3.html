@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body>
+
+<div id="app">
+  <h1>Kullanıcılar ( {{ kullanicilar.length }}  kullanıcı  )</h1>
+  <hr>
+  <!--Bir tablo olarak göstermek istersek -->
+  <table class="table  table-bordered  table-hover">
+    <tr class="bg-success text-white">
+      <th>index</th>
+      <th>ıd</th>
+      <th>İsim</th>
+      <th>rol</th>
+
+    </tr>
+    <!--sıra numarasını da kullanmak istiyorsak -->
+    <tr v-for="(kullanici, index) in kullanicilar">
+      <td>{{index}}</td>
+      <td>{{kullanici.id}}</td>
+      <td>{{kullanici.isim}}</td>
+      <td>{{kullanici.rol}}</td>
+
+    </tr>
+
+    <!-- v-for="kullanici in kullanicilar  açıklama:
+    kullanicilar dizisindeki her bir objeyi al .
+     aşagıda kullanicidan kasıt objenin bir tanesi yani  {
+              id:1,
+              isim: 'merve',
+              rol: 'Admin'
+            },
+            ,doğal olarak yukarıdaki objenin tamamını alıyoruz-
+            kulla
+                <td>{{kullanici.isim}}</td> İSE kullanıcının İSMİ YAZDIRILIR-->
+
+
+
+
+    </tr>
+  </table>
+
+</div>
+<script src ="../assets/js/vue.js"></script>
+<script>
+  const mrv= new Vue({
+    el:'#app',
+    name:'uzaktan kurs',
+
+    data: {
+      kullanicilar : [
+        {
+          id:15,
+          isim: 'merve',
+          rol: 'Admin'
+        },
+        {
+          id:25,
+          isim: 'nur',
+          rol: 'Admin'
+        },
+        {
+          id:3,
+          isim: 'müne',
+          rol: 'User'
+        },
+
+
+
+      ]
+    }
+  })
+</script>
+</body>
+</html>
