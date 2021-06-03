@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class="p-5">
+
+<div id="app">
+<label>Doğum Yeri</label>
+    <select v-model="kullanici.dogum_yeri" class="form-control col-4">
+<option value ="">Seçiniz</option>
+    <!-- Burası dinamik olarak doldurulacak
+     şehirler içerisinde yer alan her bir objeyi opsiyon olarak aşağıya
+     yazdır.
+     v-bind ile html özelliği bind edilebilinir-->
+
+<option v-for="sehir in sehirler " :value="sehir.value"><!--gelen degerleri otomatik eşitler -->
+    {{ sehir.text}}</option>
+    </select>
+    <pre class="form-text text-muted">{{ kullanici.dogum_yeri }}</pre>
+
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+    const mrv= new Vue({
+        el:'#app',
+        name:'uzaktan kurs',
+
+        data: {
+            kullanici: {
+                ad: 'merve',
+                adres: 'rize',
+                aktif_mi: false,
+                //dizi olarak tanımladıgımız zaman seçilen checkbox a göre -->diziye degerler atılır
+                secilen_roller: [],
+                cinsiyet : 'E', //varsayılan deger
+                dogum_yeri: 53 //sehirler içerisindeki value sü 53 olan şehir demek
+            },
+            sehirler:[
+                {text: 'Ankara', value: 6},
+                {text: 'İstanbul', value: 34},
+                {text: 'Rize', value: 53},
+
+//kullanıcının doğum yerini ekranda
+// bi select elamanı ile beraber
+// göstermek istiyorum...ve
+// listeyi otomatik olarak buraya doldurmak
+//istiyorum.Kulannıcın dogum yeri ne isede
+// bu degerin otomatik seçili gelmesini istiyorum
+
+            ]
+        }
+    })
+</script>
+</body>
+</html>

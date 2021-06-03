@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+
+<body>
+
+<div id="app">
+  <form action="">
+    <label>Adınız</label>
+    <input type="text" v-model="kullanici.ad" class="form-control col-4">
+    <label>Adres</label>
+    <textarea v-model ="kullanici.adres" class="form-control col-4"></textarea>
+    <hr>
+    <label>
+      <input type="checkbox" v-model="kullanici.aktif_mi"> Aktif Mi
+    </label>
+    <pre class="form-text text-muted">{{ kullanici.aktif_mi }}</pre>
+<hr>
+    <label>
+      <input type="checkbox" v-model="kullanici.secilen_roller" value="Yönetici"> Yönetici
+    </label>
+    <label>
+      <input type="checkbox" v-model="kullanici.secilen_roller" value="Editör"> Editör
+    </label>
+    <label>
+      <input type="checkbox" v-model="kullanici.secilen_roller" value="Müşteri"> Müşteri
+    </label>
+<br>
+    <!--select in v-modeline kullanıcının seçilen rollerini bind edersek
+    rol seçildiği anda seçili olabilmesini sağlamak için multiple
+    özelliği belirtilmeli
+    -->
+    <select v-model="kullanici.secilen_roller" class="form-control col-4" multiple>
+      <option>Yönetici </option>
+      <option>Editör </option>
+      <option>Müşteri </option>
+    </select>
+    <pre class="form-text text-muted">{{ kullanici.secilen_roller }}</pre>
+
+    <!--seçilme durumuna göre hangi degeri alıyor bunu da görürüz-->
+    <!--birden fazla seçim yapılabilen bi checkbox varsa ne olacak  -->
+
+    <!--  --------------  -->
+    <!-- -->
+    <label>
+      <input type="radio" v-model="kullanici.cinsiyet" value="E"> Erkek
+    </label>
+    <label>
+      <input type="radio" v-model="kullanici.cinsiyet" value="K"> Kadın
+    </label>
+    <pre class="form-text text-muted">{{ kullanici.cinsiyet }}</pre>
+
+  </form>
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+  const mrv= new Vue({
+    el:'#app',
+    name:'uzaktan kurs',
+
+    data: {
+      kullanici: {
+      ad: 'merve',
+      adres: 'rize',
+      aktif_mi: false,
+        //dizi olarak tanımladıgımız zaman seçilen checkbox a göre -->diziye degerler atılır
+        secilen_roller: [],
+        cinsiyet : 'E' //varsayılan deger
+    }}
+  })
+</script>
+</body>
+</html>
