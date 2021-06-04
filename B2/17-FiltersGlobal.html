@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- bir data değişkenine filtre uygulayarak bu degerden
+   farklı deger oluşturabilirsiniz. örnegin bi metni tamamen büyük harf
+   -->
+  <meta charset="UTF-8">
+  <title><!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>MERHABA MERVE</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class="p-5">
+
+<div id="app">
+  <title>MERHABA MERVE</title>
+
+  <p style="color:red">Tüm harfler büyük harfe çevrildi =</P>
+  <P>{{ baslik | buyukharf }}</p>
+  <p style="color:red">Tüm harfler küçük harfe çevrildi =</P>
+  <p> {{ baslik | kucukharf }}</p>
+  <p style="color:red">ilk harf büyük harfe çevrildi =</P>
+  <p>{{ baslik | ilkharfbuyuk }}</p>
+  <p style="color:red">ilk harfler büyük harfe çevrildi =</P>
+  <p>{{ baslik | ilkharflerbuyuk }}</p>
+<!-- global filtreler doğrudan kullanılabilir-->
+  <p style="color:red">Tersten yazma=</P>
+  <p>{{ baslik | terstenyaz }}</p>
+
+  <p style="color:red">Truncate=</P>
+  <p>{{ baslik | truncate(8) }}</p>
+  <!--Bi filtre ile beraber başka bi filtre de oluşturma-->
+ <!-- baslik data içindeki deger-->
+  <!--filtreleri süslü parantez içindeki data degerlerine uygulandgı gibi
+  bind edilen degerlere, v-bind  şeklindeki "bi özelliğe" de uygulayabillirisniz.
+   -->
+  <p>{{ baslik | terstenyaz | truncate(8) }}</p>
+
+  <p :title="baslik | terstenyaz"> Tersten Yaz Filtresi</p>
+<hr>
+  <!--model verilerini filtrelemek için hazır gelen bazı yapılar var
+örnegin
+   -->
+  <input type="text" v-model.trim="baslik" class="form-control">
+  <pre class="alert alert-info">{{ baslik }}</pre>
+<hr>
+  <!--input degerini number a çevirir -->
+  <input type="text" v-model.number="sayi" class="form-control">
+  <pre class="alert alert-info">{{ sayi+sayi }}</pre>
+
+
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+  //global filtre tanımlama
+  //terstenyaz şeklinde bi filtre oluşturuyorum.bunun içine de filtre tanımı gerçekleştiriyoruz
+
+//bu filtreyi sadece bu uygulamada değil.farklı bileşenlerde,uygulamalarda kullanılabilinir
+ //burdaki value degeri data dan geliyor..
+  Vue.filter('terstenyaz', function (value){
+return value.toString().split('').reverse().join('');
+  });
+// gönderdiğimiz value yü belirlediğimiz bi deger kadar kısaltıyor.
+  //daha sonrasında "..." şeklinde gösteriyor.
+  //uzun bi cümleyi belirlediğimiz bi uzunlukla sınırlandırıyor. sonuna 3 nokta koyarak bunu ekranda
+  //gösteriyor
+  Vue.filter('truncate', function(value, length){
+    if(value.length <length) {
+      return value;
+    }
+    length=length - 3;
+
+    return value.substring(0,length) + '...';
+          }
+  );
+
+
+  const mrv= new Vue({
+    el:'#app',
+    name:'uzaktan kurs',
+
+    data: {
+      baslik: 'karadeniz bölgesinin doğu',
+      sayi: 10
+    },
+    filters:{
+      buyukharf(value){
+        return value.toString().toUpperCase();
+      },
+      kucukharf(value){
+        return value.toString().toLowerCase();
+      },
+      ilkharfbuyuk(value){
+        /*bir metinsel ifadenin belli bi karakterden sonrasını almasını sağlar*/
+        return value.toString().charAt(0).toUpperCase() + value.slice(1);
+      },
+      ilkharflerbuyuk(value){
+        //split komutuyla boşluk karakterlerine göre parçalarına ayırıyorum
+
+        let kelimeler = value.toString().split(' '); //kelimeler şeklinde bi diziye dönüşmüş olacaktır.
+        let donenDeger='';
+        kelimeler.forEach(kelime => {
+          donenDeger += kelime.toString().charAt(0).toUpperCase() + kelime.slice(1) + ' ';
+
+        })
+        return donenDeger;
+      }
+    }
+  })
+</script>
+
+</body>
+</html>

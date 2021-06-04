@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- bir data değişkenine filtre uygulayarak bu degerden
+   farklı deger oluşturabilirsiniz. örnegin bi metni tamamen büyük harf
+   -->
+  <meta charset="UTF-8">
+  <title><!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class="p-5">
+
+<div id="app">
+
+
+  <p style="color:red">Tüm harfler büyük harfe çevrildi =</P>
+  <P>{{ baslik | buyukharf }}</p>
+  <p style="color:red">Tüm harfler küçük harfe çevrildi =</P>
+  <p> {{ baslik | kucukharf }}</p>
+  <p style="color:red">ilk harf büyük harfe çevrildi =</P>
+  <p>{{ baslik | ilkharfbuyuk }}</p>
+  <p style="color:red">ilk harfler büyük harfe çevrildi =</P>
+  <p>{{ baslik | ilkharflerbuyuk }}</p>
+
+
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+  const mrv= new Vue({
+    el:'#app',
+    name:'uzaktan kurs',
+
+    data: {
+      baslik: 'karadeniz bölgesinin doğu'
+
+    },
+    filters:{
+      buyukharf(value){
+        return value.toString().toUpperCase();
+      },
+      kucukharf(value){
+        return value.toString().toLowerCase();
+      },
+      ilkharfbuyuk(value){
+        /*bir metinsel ifadenin belli bi karakterden sonrasını almasını sağlar*/
+        return value.toString().charAt(0).toUpperCase() + value.slice(1);
+      },
+      ilkharflerbuyuk(value){
+        //split komutuyla boşluk karakterlerine göre parçalarına ayırıyorum
+
+        let kelimeler = value.toString().split(' '); //kelimeler şeklinde bi diziye dönüşmüş olacaktır.
+       let donenDeger='';
+        kelimeler.forEach(kelime => {
+          donenDeger += kelime.toString().charAt(0).toUpperCase() + kelime.slice(1) + ' ';
+
+        })
+        return donenDeger;
+      }
+    }
+  })
+</script>
+
+</body>
+</html>

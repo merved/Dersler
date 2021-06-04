@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class="p-5">
+
+<div id="app">
+  <!--v-alert diye bi directive tanımlamak istiyorum .
+ içerisinde yazdıgım => success şeklinde yazdıgım
+  degere göre bu div elamanını bootsrap in succes stili
+  ile gösterilmesi sağlanır.
+  v-alert diye komut(directive) normalde vue js içerisinde yok
+  biz kendimiz tanımlıcaz.
+   -->
+<div v-alert ="'success'">{{ baslik }}</div>
+  <!--binding kısmını obje olarak gönderiyorum -->
+  <div v-bg="{ type: 'warning'}" class="p-2 mb-4 text-white">{{ baslik }}</div>
+<!--CUSTOM DİRECTİVE
+ VUE içerisinde kullanılan v-model,v-show, v-if
+ v-for gibi ifadelere directive denir.
+ vue js aynı zamanda kendi diectivelerimizi yapmamıza da
+ olanak sağlıyor.
+ -->
+  <!--inputa v-model ile tarih degerini bind ediyorum -->
+  <input type="text" v-model="tarihsaat" class="form-control col-4">
+  <!-- tarihsaat model verisine göre sadece tarihi yada sadece saati gösteren bir directive
+  yapısı oluşturmak istiyorum-->
+  <input type="text" v-model="tarihsaat" v-datetime:date="tarihsaat" class="form-control col-4">
+  <input type="text" v-model="tarihsaat" v-datetime:time="tarihsaat" class="form-control col-4">
+
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+  Vue.directive('datetime',  function (el, binding){
+    // arg: kullanacagınız parametreyi ifade ediyor.
+    //v-datetime:date örneginden gidersek date
+    if(binding.arg === 'date')
+            //elemanın value sunu dogrudan ayarlıcaz
+      el.value = new Date(binding.value).toLocaleDateString();
+    else
+      //time kısmı için
+      el.value = new Date(binding.value).toLocaleTimeString();
+
+  });
+
+  const mrv= new Vue({
+    el:'#app',
+    name:'uzaktan kurs',
+
+    data: {
+      baslik: 'merve demirci karadeniz bölgesi rize şehri',
+      tarihsaat: '2018-06-24 10:12:00'
+    },
+    //success stilini uygulamak için directive tanımı
+    directives: {
+      //örnegin üstte v-alert dediğimiz için :: alert kısmını
+      //alıp alert ismi verilir
+      //function (el= öncelikle uyguladıgımız html elemanını
+      //binding ile de içerisinde kullandıgımız degerlere erişeceğiz.
+      //
+      alert: function (el, binding){
+        //ben bunu bi div elemanına uygulayacagım için ,  bu div elemanını
+        //bi özelliğini ayarla.. class özelliğini ayarla. bunu da alert olarak
+        el.setAttribute('class', 'alert alert-' + binding.value);
+//ben buraya success diye gönderdiğim zaman => success değeri  binding.value alacak
+        //doğal olarak da bunu boostrap in  alert success stili ile uygulamış olacak
+      },
+      bg: function (el, binding){
+        //el.getAttribute() diyerek de elemanın aktif bi özelliği alınabilinir.
+        //el.getAttribute('class') içinde class ın açıklaması= class içinde olan degerleri al
+        // ve sonrasına ekleme  yap
+        //binding.value v-bg="{ type: 'success'}" nin tamamına erişmiş oluyorum.
+        //binding.value.type => type degerine erişmiş oluyorum.
+
+        el.setAttribute('class', el.getAttribute('class') + ' bg-' + binding.value.type);
+      }
+
+      /*ÖNEMLİ NOT : Directive tanımlarıda sadece tanılandıgıblok içerisinde
+      kullanılır.
+      başka uygulama içerisinde kullanmak istersek
+      vue.directive
+      datetime global kullanılacak */
+    }
+  })
+</script>
+</body>
+</html>
