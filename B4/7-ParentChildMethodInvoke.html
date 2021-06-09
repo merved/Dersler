@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+</head>
+<body class="p-5">
+<div id="app">
+  <parent></parent>
+</div>
+
+<script src="../assets/js/vue.js"></script>
+<script>
+  Vue.component('Parent', {
+    template: `
+            <div class="card text-white bg-secondary mb-3">
+                <div class="card-header">Parent</div>
+                <div class="card-body">
+                    <button @click="callChildMethod" class="btn btn-danger">
+                        Call Child Method
+                    </button>
+					<child ref="child1"></child>
+                </div>
+            </div>`,
+    methods: {
+      callChildMethod() {
+        //child içindeki childMethod metodu çağır
+        /*refs: bir bileşen içerisinde özel referans değeri olarak tanımlanan bileşenlere
+        erişmeyi sağlıyor.Bunu nasıl gerçekleştiriyoruz?
+        alt bir bileşene  referans ismi verebiliyorum.
+       	<child ref="child1"></child>
+        this.$refs.child1 => child componentine erişilmiş oldu.
+        */
+        /*parent içerisinden child içindeki bi metodu çağırabilirim. */
+        this.$refs.child1.childMethod();
+      },
+      /*child içinden parent içindeki bi metodu nasıl çağırabilriz
+      * parentMethod
+      * */
+      parentMethod() {
+
+        console.log('Parent method called...');
+      }
+    }
+  });
+
+  Vue.component('Child', {
+    template: `
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Child</div>
+                <div class="card-body">
+                    <button @click="callParentMethod" class="btn btn-danger">
+                        Call Parent Method
+                    </button>
+                </div>
+            </div>`,
+    methods: {
+      childMethod(){
+        console.log('Child method called...');
+      },
+
+      callParentMethod() {
+        /*child dan parent daki bi metodu çağırma*/
+        /* child in bi üstündeki component -> parent-> bunun
+        içindeki metotlara doğrudan erişilebilinir.
+         */
+        this.$parent.parentMethod();
+      }
+    }
+  });
+
+  const app = new Vue({
+    el: '#app',
+    name: 'Uzaktan Kurs',
+    data: {}
+  })
+</script>
+</body>
+</html>

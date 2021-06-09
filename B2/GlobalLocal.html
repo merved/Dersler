@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class="p-5">
+
+<div id="app">
+
+  <alert-hello></alert-hello>
+
+</div>
+<script src ="../assets/js/vue.js"></script>
+<script>
+  Vue.component('AlertHello', {
+    data() {
+      return {
+        count: 0
+      }
+    },
+    template:  <div> Merhaba </div>
+  });
+  const mrv= new Vue({
+    el:'#app',
+    name:'uzaktan kurs',
+
+    data: {}
+  })
+</script>
+</body>
+</html>

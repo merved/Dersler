@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class="p-5">
+<div id="app">
+  <alert>Merhaba</alert>
+  <alert>nasılsın</alert>
+  <alert></alert>
+
+</div>
+<script src ="../assets/js/vue.js"></script>
+<script>
+ Vue.component('Alert', {
+   template:
+   <div class="alert alert-success">
+     <slot></slot>
+   </div>
+ });
+const app=new vue({
+el:'app',
+name: 'uzaktan kurs',
+data: {}
+})
+</script>
+</body>
+</html>

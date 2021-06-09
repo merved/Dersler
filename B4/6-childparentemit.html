@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+</head>
+<body class="p-5">
+<div id="app">
+  <!-- global component eklendi.--->
+  <parent></parent>
+  <!--amaç: parent component içerisinde alt bi component kullnmak
+  --->
+</div>
+
+<script src="../assets/js/vue.js"></script>
+<script>
+  //--Global component oluşturuldu.
+  /*--başlık alanı oluşturuldu.
+   parent in mesajını tutacak olan parentMessage oluşturuldu-
+   -- component içerisinde tanımlanan data kısmı fonksiyon olarak
+    belirtiriz.FOnksiyon olunca da dönen bi değer olarak tanımlanmalı
+    aşağıda paretn isminde global bi component oluşturduk.
+Not: global componentler vue instance lar içeirsinde tanımlanmasına gerek yok.
+
+Child componenti parent component içerisinde kullanmak için:
+
+------
+ @onChange="childChanged" -> parent içinde childChanged ->bu metot tanımlanmalı
+   */
+
+
+  Vue.component('Parent', {
+    template :`
+    <div class="card text-white bg-secondary mb-3">
+
+        <div class="card-header">Parent</div>
+        <div class="card-body">
+           Parent Message: {{ parentMessage }}
+<hr>
+          <child @onChange="childChanged"></child>
+
+        </div>
+    </div>
+  `,
+
+data() {
+  return {
+    parentMessage: ''
+  }
+},
+    methods:{
+      childChanged(msg) {
+        this.parentMessage=msg;
+      }
+    }
+
+  });
+  <!--childın içindeki bi butona bastıgı anda parent içindeki değer doğrudan değişssin-->
+  Vue.component('Child', {
+    template :`
+            <div class="card text-white bg-success mb-3">
+
+              <div class="card-header">Child</div>
+              <div class="card-body">
+                child Message: {{  childMessage }}
+                <div class ="form-inline">
+                  <input v-model="childMessage" class="form-control">
+
+                    <button @click="changeParentMessage" class="btn btn-warning">
+                      change parent message
+            </button>
+                  <button @click="changeParentMessage2" class="btn btn-warning">
+                    change parent message (emit)
+                  </button>
+                </div>
+              </div>
+            </div>
+    `,
+    data() {
+      return {
+        childMessage: ''
+      }
+    },
+    methods:{
+      /*butona tıklandıgı anda child ieçrisinden, parent içerisindeki
+  mesaj değiştirilicek
+  * */
+      /*--Bulundugunuz componentin yada vue instance sa ->bu instance ın objesine
+      erişmesini sağlar*/
+      /*this denildiği anda bu child componentin bi üst
+      componentine erişmek için->$parent şeklinde bi özelliği
+      kullanbiliriz.
+$parent=> denildiği anda ben bu child componenti->nerde kullnadıysam
+bunun bi, üst komponentine erişim sağlanır
+this.$parent.(nokta) diyerek de bu üst bileşenin data değerlerine
+erişim sağlayabilirim
+
+
+      */
+
+      changeParentMessage() {
+
+
+        this.$parent.$data.parentMessage =this.childMessage;
+      },
+      changeParentMessage2() {
+        /*change butonuna bastıgım anda bu bileşene bi olay tanımlanacak*/
+        /*daha önce bileşenlere prop(özellik) tanımlaması yapmıştık.
+        * burda da bi bileşene olay tanımlaması yapıyorum. aşağıda bu bileşenin onchange
+        * isminde bileşeni olsun,
+        * this.$emit('onChange',this.childMessage) ->onchange isminde olay-> gerçekleşirse->
+        *bu olay gerçekleştiği anda bu component içerisindeki childMessage data değerini ->
+        * bu onchange in gerçekleştiği metodun içerisine gönder.
+        *sonuç olarak:
+        * emit ile bi componente olay tanımlaması gerçekleştiriyoruz ve bu olay gerçekleştiği anda
+        * kullanılan metodun içerisine ->this.childMessage -> bu data değerini gönderiyoruz
+        *
+        * */
+        this.$emit('onChange', this.childMessage)
+      }
+    }
+
+  })
+  const app = new Vue({
+    el: '#app',
+    name: 'Uzaktan Kurs',
+    data: {}
+  })
+</script>
+</body>
+</html>

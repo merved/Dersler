@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <!--    <style>
+          .router-link-active {
+              color: yellow !important;
+          }
+      </style>-->
+  <!-- bootsrap kullanılmazsa:
+  başka style özelliği kullandıgı için öncelik vermesi için
+   !important kullanılır.-->
+
+</head>
+<body>
+<div id="app">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-3">
+    <div class="container">
+      <a href="#" class="navbar-brand">Routing App</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <router-link to="/hakkimizda" class="nav-link" active-class="active">Hakkımızda</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link :to="urunlerAdresi" class="nav-link" active-class="active">Ürünler</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link :to="{ path: 'iletisim' }" tag="span" class="nav-link" active-class="active">İletişim</router-link>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <!--sayfada bağlantıları açtıgımda göstermek istediğim
+     bu componentleri nerde göstercem
+     içeriklerin nerde yüklenmesi isteniyorsa ->router-view isminde bi component oluşturulur.
+
+     4. sayfada açmak istediğimiz bağlantıarı nerde açtırcaksak orayada router-view eklenerek sayfa içeriği açtırılır
+      -->
+    <router-view></router-view>
+  </div>
+</div>
+
+<script src="../assets/js/vue.js"></script>
+<script src="../assets/js/vue-router.js"></script>
+
+<script>
+/*componentler aşağıdaki şekilde dogrudan tanımlananır ve component oluşturulur
+componentlerin template özelliği var.
+
+* */
+
+
+  const Page_Anasayfa = {
+    template: '<h1>Hoşgeldiniz</h1>'
+  };
+  const Page_Hakkimizda = {
+    template: '<h1>Hakkımızda</h1>'
+  };
+  const Page_Urunler = {
+    template: '<h1>Ürünler</h1>'
+  };
+  const Page_Iletisim = {
+    template: '<h1>İletişim</h1>'
+  };
+  /*tüm route tanımları tutan bi değişken oluşturuyorum.isim=routes dizi olarak oluşturulur.
+   adres satırında ->path özelliğiyle hakkımızda diye bi adresi açtıgım zaman
+   hangi sayfa yükledilicekse--> bunu da component özelliğiyle tanımlamam gerekiyor
+   Burda component olarak ifade ettiğimiz aslında bizim açtırmak istediğimiz
+   sayfanın içeriği olacak.Daha büyük projelerde her sayfa component olarak oluşturulucak.
+
+   * */
+  const routes = [
+/*1.örnek olarak hakkimizda şeklinde bi bağlantı verdiğimiz zaman -->component: Page_Hakkimizda
+* componentini erkanda göster  şeklinde tanımlıyoruz. */
+    { path: '/', component: Page_Anasayfa },
+    { path: '/hakkimizda', component: Page_Hakkimizda },
+    { path: '/urunler', component: Page_Urunler },
+    { path: '/iletisim', component: Page_Iletisim },
+  ];
+
+  /*bi instance alarak oluşturuyoruz..
+  * obje olarak route tanımları belirtilir.
+
+  * */
+  const router = new VueRouter({
+    /* const routes = [ değişken adı ile özellliğin adı
+     aynı kullanılırsa iki nokta yazmaya gerek kalmadan direkt isim=routes
+     yazılır.
+     const aa değişkene aa verilirse
+     routes: aa
+     -- 2. vueRouter kütüphanesine daha önce tanımladıgımız bu route
+     bağlantılarını kullanacagımız söylenir.
+
+     */
+    routes
+  });
+/* uygulamamız yukarıdaki router ı kullanacak şeklinde aşağıda belirttik
+* */
+  const app = new Vue({
+    //3. uygulamda hangi router kullanılacaksa o yazılır.
+
+    router,
+    el: '#app',
+    name: 'Uzaktan Kurs',
+    data: {
+      urunlerAdresi: '/urunler'
+    }
+  })
+</script>
+</body>
+</html>
