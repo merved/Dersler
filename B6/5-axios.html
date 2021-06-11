@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/app.css">
+</head>
+<body class="p-5">
+<div id="app">
+    <div class="container">
+        <button class="btn btn-info float-right" @click="itemNew">Yeni Ürün</button>
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="itemModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <!--submit butonuna basıldıgında otomatik olarak prevent içerisinden itemSave i
+                      çağırarak kaydedilmesini gerçekleştirecek-->
+                    <form @submit.prevent="itemSave">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Ürün Kaydı</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="baslik">Başlık</label>
+                                <input type="text" name="baslik" id="baslik" v-model="formItem.baslik" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="kategori">Kategori</label>
+                                <input type="text" name="kategori" id="kategori" v-model="formItem.kategori" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="tutar">Tutar</label>
+                                <input type="text" name="tutar" id="tutar" v-model="formItem.tutar" class="form-control">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <!--sıfırdan büyük old. güncele yani kayıt var. kayıt yoksa kaydet. -->
+                            <input type="submit" class="btn btn-primary" :value="formItem.id>0?'Güncelle':'Kaydet'">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <h2>Ürünler ({{list.length}})</h2>
+        <table class="table table-bordered table-hover">
+            <tr v-if="!list.length">
+                <td>Kayıt yok</td>
+            </tr>
+            <tr v-for="item in list">
+                <td>{{item.id}}</td>
+                <td><img :src="item.resim" style="height: 120px;"></td>
+                <td>{{item.baslik}}</td>
+                <td>{{item.kategori}}</td>
+                <td>{{item.tutar}}</td>
+                <td>
+                    <button class="btn btn-success btn-sm" @click="itemEdit(item.id)">Düzenle</button>
+                </td>
+                <td>
+                    <button class="btn btn-danger btn-sm" @click="itemDelete(item.id)">Sil</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script src="../assets/js/vue.js"></script>
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/sweetalert2.all.js"></script>
+<script src="../assets/js/axios.min.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        name: 'Uzaktan Kurs',
+        data: {
+            formItem: {},
+            list: []
+        },
+        created() {
+            this.getProducts();
+        },
+        methods: {
+            getProducts() {
+                axios.get('http://localhost:3001/products')
+                    .then((res) => {
+                        //gelen res içindeki verileri,uygulama
+                        //içerisindeki dizi değişkenine aktarılır
+
+                       // debugger;
+                        this.list = res.data;
+                    })
+                    .catch((err) => {
+                        //bir hata olursa verileri api sunucusundan
+                        //çekerken bir hata ile karşılaşırsak bu hatalarda
+                        //burada yakalanabilir.
+
+                        console.log(err);
+                    });
+            },
+            itemNew() {
+                this.formItem = {};
+                //jquery kullanıldı.
+                $('#itemModal').modal('show');
+            },
+            itemSave() {
+                //sunucuda doğrudan kaydedilecek.
+
+                if (this.formItem.id > 0) {
+                    axios.put('http://localhost:3001/products/' + this.formItem.id, this.formItem)
+                        .then((res) => {
+                            swal('Ürün', 'Güncellendi', 'success');
+                            this.getProducts();
+
+                            this.formItem = {};
+                            $('#itemModal').modal('hide');
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                } else {
+                    //kaydetme işlemi hangi api kaynagı üzerinde yapılacaksa bu adres yazılır.
+                    //2.parametre ise this.formItem =>kaydetme yapacagım verileri nerden alıcaksam bunu doğrudan
+                    //yazabilirim.Bu formItem dan alınacak
+                    //v-model ler formItem başlık, kategori, tutar old. için tüm veriler
+                    // formItem içerisinde olmuş olacaktır
+                    // doğal olarak this.formItem dediğimizde tüm veriler bu api kaynagına post metoduyla
+                    // gönderilmiş olacaktır.
+
+                    axios.post('http://localhost:3001/products', this.formItem)
+                        .then((res) => {
+                            //sonuç verileri
+                            //sweetalert2.all.js => swal
+                            swal('Ürün', 'Kaydedildi', 'success');
+                            //yeni kaydedilen veri yeniden çekilerek listede gösrülmesi sağlanır.
+                            this.getProducts();
+
+                            this.formItem = {};
+                            $('#itemModal').modal('hide');
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                }
+            },
+            itemEdit(id) {
+                axios.get('http://localhost:3001/products/' + id)
+                    .then((res) => {
+                        //res data dan alarak formItem içerisine dolduracak.
+                        this.formItem = res.data;
+
+                        $('#itemModal').modal('show');
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            },
+            itemDelete(id) {
+                //onay işlemi ekranda uyarı penceresi olaarak gösterilecek
+
+                swal({
+                    title: 'Emin misiniz?',
+                    text: 'Silmek istediğinize emin misiniz?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'İptal',
+                    confirmButtonText: 'Sil'
+                }).then((result)=> {
+                    //sil yada iptal butonuna basılınca ne olcak ise belitilebilir.
+                    //sil e basılırsa bu result un  value true olarak gelmekte
+                    if (result.value) {
+                        axios.delete('http://localhost:3001/products/' + id).
+                            then((res) => {
+                                swal('Ürün', 'Silindi', 'success');
+                                this.getProducts();
+                            });
+                    }
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>

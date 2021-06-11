@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/app.css">
+</head>
+<body class="p-5">
+<div id="app">
+    <h2>Yapılacak Listesi ({{list.length}} kayıt)</h2>
+    <hr>
+    <div v-if="isLoading">Yükleniyor...</div>
+    <p v-if="list.length===0">Yapılacak yok.</p>
+    <table class="table table-bordered table-hover" v-if="list.length>0">
+        <thead>
+        <tr class="bg-success text-white">
+            <td>index</td>
+            <td>başlık</td>
+            <td>yapıldı</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(item, index) in list">
+            <td>{{ index }}</td>
+            <td>{{ item.title }}</td>
+            <td>{{ item.completed }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="../assets/js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        name: 'Uzaktan Kurs',
+        data: {
+        isLoading:true,
+            list: []
+        },
+        //veriler çekilcek
+        created(){
+            //vueInstancemız oluşturuldugu anda sayfa yüklendiği anda
+            //bu kaynak üzerindeki veriyi çekicez
+            //http://jsonplaceholder.typicode.com/todos
+            /*fetch komutu çağrıldıgı zaman bir promise nesnesi oalrak döner
+            * promise nesnesi: verileri çeker, veriler çekildikten sonra ->bu verileri
+            * data içerisindeki bi değişken içerisine doldurur.
+            *  */
+            fetch('http://jsonplaceholder.typicode.com/todos')
+            .then((res)=> { //gelen res degerine göre
+                return res.json() //gelen degerler json formatına dönüştü
+            })
+            .then((res) => { //gelen res içindeki degerleri ->data ieçrisinde yer alan
+               //veriler çekildiktan sonra false olarak
+               this.isLoading= false;
+                //list dizisi içerisine eşitlemiş olduk.
+
+                this.list=res;
+            })
+        }
+    }
+        )
+
+</script>
+</body>
+</html>
