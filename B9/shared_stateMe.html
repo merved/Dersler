@@ -1,10 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Vue.js</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/app.css">
 </head>
-<body>
-$END$
+<body class="p-5">
+<div id="app">
+    <p>{{ sharedState.mesaj }}</p>
+    <p>{{ privateState.mesaj }}</p>
+
+
+    <bilesen1></bilesen1>
+    <bilesen2></bilesen2>
+</div>
+
+<script src="../assets/js/vue.js"></script>
+<script>
+    let store ={
+        state:{
+            mesaj: 'Merhaba'
+        }
+
+    }
+    Vue.component('Bilesen1', {
+        /*component içerisinden mesaj değerinide göstermek için */
+        template: '<div> {{ sharedState.mesaj }}</div>',
+        /*data kısmı fonk olarak oluşturulur.*/
+        data() {
+            return {
+                privateState: {}, //bu componentin kendi data değişkenleri burda
+                sharedState:store.state //diğer componentlerle paylaşımlı olarak kullandıgımız data degerlerini de
+            //sharedState içerisinde yuk. gibi yazılabilir.
+
+
+            }
+        }
+    });
+    Vue.component('Bilesen2', {
+        /*component içerisinden mesaj değerinide göstermek için */
+        template: '<div> {{ sharedState.mesaj }}</div>',
+        /*data kısmı fonk olarak oluşturulur.*/
+        data() {
+            return{
+            privateState: {}, //bu componentin kendi data değişkenleri burda
+            sharedState:store.state
+        }}
+    });
+    new Vue({
+        el: '#app',
+        //fonksiyon değil property oldugu için direkt global data olarak da
+        //aşğ şekilde tanımlanır
+        data: {
+            //diyelim ki instance içerisinde özel bi değerimiz var
+            privateState: {
+                'mesaj' : 'Instance mesajı'
+            },
+    sharedState:store.state}
+
+
+
+
+    })
+</script>
 </body>
 </html>
