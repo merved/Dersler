@@ -49,11 +49,29 @@ let storeObj = {
             commit('BegeniArttir'),
 
         //bunu fonksiyon gibi yazıcaz
-//state içindeki bi deger kontrol edilerek de bi işlem yapılabilir.
+        //state içindeki bi deger kontrol edilerek de bi işlem yapılabilir.
         BegeniAzalt3({commit, state}) {
             if (state.aktifKullanici.BegeniSayisi > 0)
                 commit('BegeniAzalt');
         },
+        //actionlar içinde asenkron metotlar kullanmak
+        //commit yazarak--> context içerisinden commit dogrudan alınır
+        BegeniArttirAsync( { commit}) {
+            //promise fonk: promise nesnesi oluşturuldu
+            //bu nesne iki tane durum içermekte
+            //1-resolve 2-reject
+            return new Promise((resolve, reject ) => {
+setTimeout(() =>   {
+    //BegeniArttir asenkron bi promise nesnesi içerisine bu şekilde tanımlanır.
+    //3 sn sonrasında bu commiti gerçekleştirsin
+    //bu işlem tamamlandıktan sonra da resolve fonk çağrılır.
+    commit('BegeniArttir');
+    resolve();
+    }, 3000)
+
+
+            })
+        }
     }
 };
 //obje doğrudan aşağıdaki şekilde alındı
