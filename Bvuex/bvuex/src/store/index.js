@@ -24,10 +24,7 @@ let storeObj = {
         BegeniArttir(state, payload){
             //gecikmeli hale getircez bi nevi asenkron duruma getircez
             //3sn sonra bu işlem yapılcak
-            setTimeout(() => {
-                state.aktifKullanici.
-                    BegeniSayisi += payload.deger;
-            }, 8000);
+           state.aktifKullanici.BegeniSayisi +=payload.deger;
 
             //payload -> obje
             //payload.deger -> obje içindeki değer demek oluyor
@@ -45,8 +42,8 @@ let storeObj = {
         KullaniciAyarla3(context) {
             context.commit('KullaniciAyarla');
         },
-        BegeniArttir3: ({commit}) =>
-            commit('BegeniArttir'),
+        BegeniArtir3: ({commit}, payload) => commit('BegeniArttir', payload),
+
 
         //bunu fonksiyon gibi yazıcaz
         //state içindeki bi deger kontrol edilerek de bi işlem yapılabilir.
@@ -56,7 +53,7 @@ let storeObj = {
         },
         //actionlar içinde asenkron metotlar kullanmak
         //commit yazarak--> context içerisinden commit dogrudan alınır
-        BegeniArttirAsync( { commit}) {
+        BegeniArttirAsync( { commit} , payload) {
             //promise fonk: promise nesnesi oluşturuldu
             //bu nesne iki tane durum içermekte
             //1-resolve 2-reject
@@ -65,7 +62,7 @@ setTimeout(() =>   {
     //BegeniArttir asenkron bi promise nesnesi içerisine bu şekilde tanımlanır.
     //3 sn sonrasında bu commiti gerçekleştirsin
     //bu işlem tamamlandıktan sonra da resolve fonk çağrılır.
-    commit('BegeniArttir');
+    commit('BegeniArttir', payload);
     resolve();
     }, 3000)
 
@@ -74,5 +71,9 @@ setTimeout(() =>   {
         }
     }
 };
-//obje doğrudan aşağıdaki şekilde alındı
-export default new Vuex.Store(storeObj);
+//obje olarak aşağıdaki şekilde tanımlanır.
+export default new Vuex.Store({
+modules:{
+  kullaniciModule: storeObj
+}
+});
