@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class="p-5">
+
+<div id="app">
+<p v-once>{{ title }}</p>
+  <p>{{ hello() }} <a v-bind:href="link">Link </a></p>
+<p v-html=" blogLink "></p>
+
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+
+  new Vue({
+
+    el: "#app",
+
+    data:{
+      title: "Merhaba dünya  ",
+      message: "Kablosuz kedi hoşbulduk...",
+      /*link bi property*/
+      link: "https://www.youtube.com/",
+      blogLink: "<a href ='https://translate.google.com/?hl=tr'>link </a>"
+    },
+    //methods da bi obje
+    methods: {
+      hello: function (){
+        this.title="Merhaba!!!"
+          return this.title;
+      }
+    }
+  })
+</script>
+</body>
+</html>

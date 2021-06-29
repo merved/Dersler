@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+      <html lang="en">
+      <head>
+      <meta charset="UTF-8">
+      <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class="p-5">
+
+<div id="app">
+
+    <h1>{{title}}</h1>
+    <!--input olsun input içerisine bişeler yazdıkça description güncellensin. yazar yazmaz aktarsın -->
+<!--elementin hemen içerisinde bazı tanımlamalar yapılabilir.
+ Bunlara da directive denir.Directiveler kullanarak biz inputun içerisinde herhangi bi karakter yazıldıgında tetiklenen
+ ortaya çıkan eventi yakalayabiliyoruz.Bu eventle bişey tetiklendiğinde başka bir şeyi benim fonk olabilir, benim metodum olabilir.
+   herhangi bir şeyi tetikletebilirim.İnput old. zamanı v-on ile belirtirim.
+   v-on:input açıklama: input eventi oldugunda birşey çalıştırcak.çalıştıracagı şey:
+   changeTitle diye bi fonk çalışsın-->
+    <input type="text" v-on:input="changeTitle" >
+    <p>{{ description }}</p>
+
+
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+
+    new Vue({
+
+        el: "#app",
+
+        data:{
+            title: "merhaba VideoSınıf Vue js egitimi",
+            description: "Bu bir açıklamadır"
+        },
+        //methods da bi obje
+        methods: {
+            changeTitle: function (event){
+                /*datanın içerisindeki yada vue js instance içerisindeki
+              herhangi bi veriye erişmek istenirse this anahtar kelimesi kullanılır.
+               */
+                //this.description açıklama: bi degere sahip olacak.Peki hangi degere sahip olacak?
+                //input un aldıgı degere sahip olacak.basılan her karakteri, description içerisinde
+                //atması lazım
+               // v-on:input="changeTitle" burda otomatik olarak yapılıyor. inputun value sü alınıyor
+                this.description=event.target.value;
+
+            }
+        }
+  })
+</script>
+</body>
+</html>

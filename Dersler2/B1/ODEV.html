@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class="p-5">
+
+<div id="app">
+  <div id="exercise">
+    <p style="color:red">1-) İsim ve soyisminizi yazdırınız</p>
+    <p style="color:darkred">Name={{ name }}</P>
+    <p style="color:darkred">Age={{age}}</P>
+    <p style="color:red">2-) Yaşınızı 5 ile çarpınız.</p>
+    <p>{{carp}}</p>
+    <p style ="color:red">3-) Fonksiyon çağırarak 0 ile 1 arasında bir sayı üretiniz.</p>
+    <p> {{randomNumber()}}</p>
+    <p style ="color:red">4-) Google üzerinden bulacağınız herhangi bir fotoğrafı img elementinde gösterme işlemini yapınız.("src" attribute' una bind etmeyi unutmayınız)</p>
+    <img :src="imgGoster">
+    <div>
+      <p style ="color:red">5) Name değişkeninin değerinin input içine yazdığınız değer ile anlık olarak değiştirilmesini sağlayınız.("value" attribute kullanarak)</p>
+      <hr>
+      <input type="text" v-model="Deg">
+      <p>{{Deg}}</p>
+
+    </div>
+  </div>
+
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+
+  new Vue({
+
+    el: "#app",
+
+    data: {
+      name: "merve",
+      age: 26,
+      imgGoster: "https://cdn-1.motorsport.com/images/amp/0ZRk5L80/s6/formula-1-2021-rules-2019-f1-2-2.jpg",
+      Deg:"",
+    },
+    //methods da bi obje
+    methods: {
+randomNumber: function (){
+        return (Math.floor(Math.random()*10)+1);
+    }
+    },
+    computed: {
+      carp() {
+        return this.age * 5;
+      },
+    }
+  } );
+</script>
+</body>
+</html>

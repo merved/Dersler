@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class="p-5">
+
+<div id="app">
+  <p> {{ IsimDegeri }}</p>
+  <p> {{ YasCarpimDegeri() }}</p>
+  <p> {{ RastgeleSayi() }}</p>
+  <div><img v-bind:src="ResimLinkDegeri" alt="Gülen Surat"></div>
+  <input type="text" v-model="Icerik">
+  <p> {{Icerik}} </p>
+
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+  const mrv= new Vue({
+    el:'#app',
+    data: {
+      IsimDegeri:'DavidMashadow 28',
+      ResimLinkDegeri:'http://666-evil.org/images/toung.gif',
+      Icerik:""
+    },
+    methods:{
+      YasCarpimDegeri : function(){
+        this.YasDegeri = 28*5
+        return this.YasDegeri
+      },
+      RastgeleSayi : function(){
+        this.SayiDegeri = Math.random();
+        return this.SayiDegeri
+      },
+  }});
+</script>
+</body>
+</html>

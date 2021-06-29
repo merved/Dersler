@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class="p-5">
+
+<div id="app">
+    <!-- 1) Butona tıklanıldığında bir alert kutusu çıkartınız -->
+    <div>
+      <button v-on:click="showAlert(data2)">Alert Göster</button>
+
+    </div>
+    <!-- 2) "keydown" event'ini dinleyerek value değişkeni içerisinde yazdığınız veriyi saklayın. (ipucu: event.target.value size yazdığınız değeri verebilir.) -->
+    <div>
+      <!--event göndereceksek () kullanmıyoruz -->
+      <input type="text" v-on:keydown="KlavyeBas">
+      <p>value2={{ value2 }}</p>
+    </div>
+    <!-- 3) 2.Uygulamayı düzenleyerek eğer keydown ENTER ise yazdığınız verinin value değerine aktarılmasını sağlayın -->
+    <div>
+      <input type="text" v-on:keydown.enter="EnterKlavyeBas">
+      <p>value={{ value }}</p>
+      <p>value2={{ value2 }}</p>
+
+    </div>
+  </div>
+
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+  const mrv= new Vue({
+    el:'#app',
+    data: {
+      data2:'Şifrenizi Tekrar Giriniz.!!',
+      value2:'',
+      value:''
+    },
+    methods:{
+      showAlert:function (data2){
+        alert(data2);
+
+      },
+      KlavyeBas:function (event){
+      this.value2=event.target.value;
+      },
+      EnterKlavyeBas(event){
+        this.value=event.target.value;
+      }
+    }
+  })
+</script>
+</body>
+</html>
