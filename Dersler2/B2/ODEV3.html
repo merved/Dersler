@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class="p-5">
+
+<div id="app">
+  <!-- 1) value isimli property'nin değerine bakarak result için bir reactive kod yazınız.
+
+ Süreç ise  value 33'e eşit olmadığı durumlarda <p> elementinin içinde  "Henüz Bitmedi!!" 33 olduğunda ise "Tamamlandı" yazmalıdır..
+
+ Bunun için gördüğünüz reactivity türlerinden birini kullanınız. (Not : Butonlar yardımıyla value property'nin değerini değiştirebilirsiniz ))   -->
+  <div>
+    <p>Şuanki Değer: {{ value }}</p>
+    <button @click="value+=5">Add 5</button>
+    <button @click="value+=1">Add 1</button>
+    <p>{{ result }}</p>
+  </div>
+  <!-- 2) result property' değerini izleyerek 5 saniye sonra value'nun değerini sıfırlayınız. (ipucu: setTimeout(..., 5000) kullanılabilir.-->
+  <div>
+    <input type="text">
+    <p>{{ value }}</p>
+  </div>
+</div>
+
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+  const mrv= new Vue({
+    el:'#app',
+    data: {
+      value: 0
+    },
+    methods:{
+
+    }
+  })
+</script>
+</body>
+</html>

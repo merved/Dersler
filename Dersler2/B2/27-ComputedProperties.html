@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class="p-5">
+
+<div id="app">
+<button v-on:click="counter++">Arttır</button>
+  <button v-on:click="counter--">Azalt</button>
+<button v-on:click="secondCounter++">2.counter ı Arttır</button>
+  <p>Counter : {{ counter }} *|* {{ secondCounter }}</p>
+  <p>{{ result() }} | {{ output }}</p>
+
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+  const mrv= new Vue({
+    el:'#app',
+    data: {
+      counter: 0,
+      secondCounter: 0
+    },
+    methods : {
+      result : function () {
+        //increase içerisinde bi değer değiştirilecek
+        //counter 10 dan büyükse result değeride 10dan büyüktür
+        //küçkse küçüktür yazdırcam
+        console.log("Method Çalıştı...");
+        return this.counter > 10 ? "10 dan büyüktür " : "10dan küçüktür"
+      }
+      },
+      computed :{
+        output: function(){
+          console.log("compute çalişti...")
+          return this.counter > 10 ? "10 dan büyüktür": "10dan küçüktür.."
+        }
+      }
+
+  })
+</script>
+</body>
+</html>
