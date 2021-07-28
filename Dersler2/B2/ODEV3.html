@@ -21,14 +21,15 @@
  Bunun için gördüğünüz reactivity türlerinden birini kullanınız. (Not : Butonlar yardımıyla value property'nin değerini değiştirebilirsiniz ))   -->
   <div>
     <p>Şuanki Değer: {{ value }}</p>
-    <button @click="value+=5">Add 5</button>
-    <button @click="value+=1">Add 1</button>
+    <button @click="con+=5">Add 5</button>
+    <button @click="con+=1">Add 1</button>
     <p>{{ result }}</p>
+    <p>Counter : {{ con }}</p>
   </div>
   <!-- 2) result property' değerini izleyerek 5 saniye sonra value'nun değerini sıfırlayınız. (ipucu: setTimeout(..., 5000) kullanılabilir.-->
   <div>
     <input type="text">
-    <p>{{ value }}</p>
+    <!--<p>{{ con }}</p>-->
   </div>
 </div>
 
@@ -38,11 +39,25 @@
   const mrv= new Vue({
     el:'#app',
     data: {
-      value: 0
+      con: 0
     },
     methods:{
+    },
+    computed: {
+      result: function (){
+        console.log("compute çalişti...")
+        return this.con>33 ? "Tamamlandı" :  "HenüzBitmedi";
+      } },
+      watch:{
+        con :function (value){
+          vm=this;
+          setTimeout(function (){
+            vm.con = 0;
+          }, 5000)
+          console.log(value);
+        }
+      }
 
-    }
   })
 </script>
 </body>

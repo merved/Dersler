@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/app.css">
+</head>
+<body class="p-5">
+<!--dom üzerinde bi javascript objesi barındırmak istemiyorsam  -->
+<div id="app">
+    <div class="box" :style="{ 'background-color' : color}" ></div>
+    <div class="box" :style=" customStyle" ></div>
+    <div class="box" ></div>
+    <hr>
+    <input type="text"  v-model="color">
+    <!--yüksekliğini değiştirme-->
+    <input type="text"  v-model="height">
+
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+    const mrv= new Vue({
+        el:'#app',
+        data: {
+            color: "green",
+            height : 100
+        },
+        computed : {
+            customStyle : function (){
+                return {
+                    backgroundColor : this.color,
+                    height : this.height + "px"
+                }
+            }
+        }
+
+    })
+</script>
+<style scoped>
+    .box {
+        width: 100px;
+        height: 100px;
+        background-color:gray;
+        display: inline-block;
+        margin-right: 5px;
+    }
+    .green{
+        background-color: green;
+    }
+    .blue{
+        background-color: blue;
+    }
+
+    </style>
+
+      </body>
+</html>

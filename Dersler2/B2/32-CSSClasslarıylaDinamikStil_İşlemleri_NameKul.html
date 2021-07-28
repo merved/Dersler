@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/app.css">
+<!--obje notasyonu yada bi koşula bağlı olmadan css classlarını attach etmek
+  bind etmek, bi elemente bağlamak isteyebiliriz-->
+</head>
+<body class="p-5">
+
+<div id="app">
+    <div
+   @click="attachedClass = !attachedClass"
+    :class="divClass"
+    class="box">
+</div>
+    <div class="box" :class="{yellow : attachedClass}"></div>
+    <!--box içerisinde:  classı herhangi bi obje notasyonundan değil, direk data içerisindeki
+    color dan gelsin
+      => color adı ne? -green
+      => green ne ? bi css class adı
+      böylelikle direk class adı burda verildi.
+      **birden fazla class adı verileceği zaman array syntax ı devreye girer.
+      **color data daki bi property oldugu için colorı rahatlıkla kullanabildik...
+      ** {yellow : attachedClass} =>koşullu class adı
+      **dikkat direk yellow şeklinde array içinde yazamam
+      yani array içinde birden fazla css classı bind edilmiş oldu.
+      -->
+    <div class="box" :class="[color, {yellow : attachedClass}]"></div>
+    <hr>
+    <input type="text"  v-model="color">
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+    const mrv= new Vue({
+        el:'#app',
+        data: {
+            attachedClass:false,
+            color: "green"
+        },
+
+        computed : {
+            divClass: function () {
+                return {
+                    yellow : this.attachedClass,
+                    blue   : !this.attachedClass
+                }
+            }
+        }
+
+    })
+</script>
+<style scoped>
+    .box {
+        width: 100px;
+        height: 100px;
+        background-color:gray;
+        display: inline-block;
+        margin-right: 5px;
+    }
+    .yellow{
+        background-color:yellow;
+    }
+    .blue{
+        background-color: blue ;
+    }
+    .green{
+        background-color: green;
+    }
+    </style>
+
+      </body>
+</html>

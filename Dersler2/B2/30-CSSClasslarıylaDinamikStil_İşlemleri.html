@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class="p-5">
+
+<div id="app">
+    <div
+   @click="attachedClass = !attachedClass"
+    :class="divClass"
+    class="box">
+</div>
+    <div class="box" :class="{yellow : attachedClass}"></div>
+    <div class="box"></div>
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+    const mrv= new Vue({
+        el:'#app',
+        data: {
+            attachedClass:false
+        },
+        //Attached classın değişimine göre reactive bi sonuç
+        //üretecek bi yapıya ihtiyacımız var (computedProperty).
+        computed : {
+            divClass: function () {
+                return {
+                    //javascript objesi döndürsün
+                    //this.attachedClass varsa yellow döndür
+                    yellow : this.attachedClass,
+                    blue   : !this.attachedClass
+                }
+            }
+        }
+
+    })
+</script>
+<style scoped>
+    .box {
+        width: 100px;
+        height: 100px;
+        background-color:gray;
+        display: inline-block;
+        margin-right: 5px;
+    }
+    .yellow{
+        background-color:yellow;
+    }
+    .blue{
+        background-color: blue ;
+    }
+    </style>
+
+      </body>
+</html>

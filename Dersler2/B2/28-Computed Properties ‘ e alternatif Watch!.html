@@ -14,9 +14,9 @@
 <body class="p-5">
 
 <div id="app">
-<button v-on:click="counter++">Arttır</button>
+  <button v-on:click="counter++">Arttır</button>
   <button v-on:click="counter--">Azalt</button>
-<button v-on:click="secondCounter++">2.counter ı Arttır</button>
+  <button v-on:click="secondCounter++">2.counter ı Arttır</button>
   <p>Counter : {{ counter }} *|* {{ secondCounter }}</p>
   <p>{{ result() }} | {{ output }}</p>
 
@@ -38,14 +38,28 @@
         console.log("Method Çalıştı...");
         return this.counter > 10 ? "10 dan büyüktür " : "10dan küçüktür"
       }
+    },
+    computed :{
+      output: function(){
+        console.log("compute çalişti...")
+        return this.counter > 10 ? "10 dan büyüktür": "10dan küçüktür.."
       },
-      computed :{
-        output: function(){
-          console.log("compute çalişti...")
-          return this.counter > 10 ? "10 dan büyüktür": "10dan küçüktür.."
-        },
-      }
+    },
+    watch: {
+      counter : function(value) {
+        vm=this;
+//bu içeriğe default olarak bi value alıyor
 
+//counterın değeri değiştiğinde belli bi zaman sonra aksiyon çalıştırılabilir.
+
+//5 saniye sonra fonksiyon çalışsın.counter değeri sıfırlansın
+        setTimeout(function () {
+                  vm.counter = 0;
+                },
+                5000)
+
+        console.log(value);
+      }}
   })
 </script>
 </body>
