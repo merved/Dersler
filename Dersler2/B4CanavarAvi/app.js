@@ -31,7 +31,7 @@ new Vue({
 // point isminde değişken oluşturalım
 // point değişkenini virgülsüz elde etmek için ceil fonksşyonu kullanıldı.
 
-            var point = Math.ceil(Math.random() * 10);
+            var point = Math.ceil(Math.random() * this.attack_multiple);
             this.monster_heal -= point;
             //saldırı edildikten sonra canavarda karşılık verdiği
             //için caavar metot çağrılır. Kendi canımdan da eksilme olur.
@@ -42,7 +42,7 @@ new Vue({
 
         },
         speacial_attack: function () {
-            var point = Math.ceil(Math.random() * 25);
+            var point = Math.ceil(Math.random() * this.special_attack_multiple);
             this.monster_heal -= point;
             this.add_to_log({turn : "p", text: "özel oyuncu atağğı("+ point +")"})
             this.monster_attack();
@@ -51,7 +51,7 @@ new Vue({
         },
         //ilk yardım
         heal: function () {
-            var point = Math.ceil(Math.random() * 20);
+            var point = Math.ceil(Math.random() * this.heal_up_multiple);
             //oyunucunun canını artırcak.yardım edecek
             this.player_heal += point;
             this.monster_attack();
@@ -70,7 +70,7 @@ new Vue({
         },
         //biz saldırdığımız zaman canavar da karşılık verip saldırcak.
         monster_attack: function () {
-            var point = Math.ceil(Math.random() * 15);
+            var point = Math.ceil(Math.random() * this.monster_attack_multiple);
             this.player_heal -= point;
             // turn kısmında isimlendirmeyi m vermişiz bunun kontrolünü
             //index.html içindeki   :class="{ 'player-turn' : log.turn =='p', 'monster-turn' : log.turn =='m' }"
