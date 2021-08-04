@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class="p-5">
+
+<div id="app">
+  <!-- 1) Butona tıklayarak <p> elementleri arasında bir Toggle İşlevi yapın.
+   Hem v-if hem de v-show syntax'larını kullanarak
+   bu işlemi gerçekleştiriniz. Aralarındaki farkı
+   Öğeyi İncele diyerek bu iki syntax farkını gözlemleyiniz -->
+  <div>
+    <button @click="togle=!togle">Toggle</button>
+    <p v-if="togle">Beni Görebiliyor musun?</p>
+    <p v-else>Ya da beni görebiliyor musun?</p>
+    <p v-show="togle">Beni Görebiliyor musun?</p>
+    <p v-show="!togle">Ya da beni görebiliyor musun?</p>
+  </div>
+
+  <!-- 2) Array kullanarak bir <ul> listesi oluşturunuz. Liste içerisinde hem Array'deki
+  verinin değerini hem de index numarasını her bir elementin içerisine yazdırınız  -->
+  <ul>
+    <li v-for=" (item , index) in array">{{ index }} - {{ item }}</li>
+  </ul>
+  <!-- 3) Yan taraftaki objenin tüm key ve value verilerini yazdırınız: customObject:
+   {title: 'Game of Thrones',author: 'George R.R',books: '7'}. Ayrıca tüm elementlerin
+   index numarasını da yazdırınız. -->
+ <hr>
+
+  <ul>
+      <li v-for =" (value , key,  index) in customObject">{{ key }} - {{ value }} - {{ index}}</li>
+    </ul>
+  <hr>
+
+  <ul>
+    <li v-for =" c in cust2">
+      <ul>
+        <li v-for ="(value, name, index) in c">{{ index }} - {{name}} - {{value}}</li>
+      </ul>
+
+    </li>
+  </ul>
+
+  <hr>
+
+  <hr>
+  <!-- 4) Yan taraftaki objenin tüm value değerlerini yazdırınız.
+   Ayrıca iç içe bir loop daha kurarak
+   Array içerisindeki verileri de yazdırınız :
+   { name: 'NesnedLoop', id: 19,data: [4.3, 2.67, 10.42, 1402] }
+    (ipucu: v-for ve v-if Directive'lerinin beraber kullanımı bunu
+     başarmanızı sağlayacaktır.) -->
+  <ul>
+    <li v-for ="d  in dataa">
+      <!--template isimli element vue js tarafından ele alınır.
+      hiiç bi şekilde render edilmez html yapısına zarr gelmez-->
+<template v-if="Array.isArray(d)">Array
+  <!--value denilen  array ise aşağıdaki çalışsın -->
+  <!--<div v-for="item in value">{{ item }}</div>-->
+  <div v-for ="item in d "> {{ item }}</div>
+</template>
+<template v-else> {{d }}..** </template>
+    </li>
+  </ul>
+</div>
+
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+  const mrv= new Vue({
+    el:'#app',
+    data: {
+      togle: false,
+      array :['merve', 'nur', 'mune'],
+
+customObject : {
+        title:'Game of Thrones',
+        author: 'George R.R',
+        books: '7'
+},
+      cust2 : [
+        {title : "merve", author : "gül"},
+        { title:"nur", author :"gez"},
+        { title : "müne",  author: "tat"},
+
+      ],
+  dataa :{
+            name: 'NesnedLoop',
+            id: 19,
+            data: [4.3, 2.67, 10.42, 1402] }
+
+    },
+  })
+</script>
+</body>
+</html>

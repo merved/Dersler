@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class="p-5">
+
+<div id="app">
+<p v-if="show">Beni Görebilirsin</p>
+  <!-- false yerine javascript kodu yazılırsa koşul onun çıktısına bağlı olur.Orda ki
+   şart sağlanırsa direkt v-if true döner.True dan kaynakllı olarak
+    gözükecektir-->
+  <!--show un sağlanmadıgı true olmadıgı aksi durumda false -->
+  <p v-else>Beni görebilir misin acaba?</p>
+  <!--buton ile gizleme ve gösterme yapılacak -->
+  <!--  show un var olan degerini  tersine çevir true yada false-->
+<button @click="show = !show">Göster/Gizle</button>
+  <!--tıklanıldıgı anı click eventi ile alınır. -->
+
+  <p v-if="sayi < 10"> Sayı 10 dan küçüktür</p>
+  <p v-else-if="sayi > 10">Sayı 10 dan büyüktür</p>
+  <p v-else> Sayı 10 a eşittir</p>
+
+  <hr>
+  <button @click="showParagh=!showParagh">
+    Göster/Gizle
+  </button>
+  <p v-show="showParagh">Karedeniz bölgesi yeşilliği
+    ile masmavi denizi ile bilnin güzel
+    bir bölgedir.
+  </p>
+
+
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+  const mrv= new Vue({
+    el:'#app',
+    data: {
+      show:false,
+      sayi : 5,
+      showParagh : false
+
+    }
+  })
+</script>
+</body>
+</html>

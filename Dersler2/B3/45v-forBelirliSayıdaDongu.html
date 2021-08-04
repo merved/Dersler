@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class="p-5">
+<div id="app">
+
+  <hr>
+  <span v-for="n in 5">{{ n }}</span>
+
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+  const mrv= new Vue({
+    el:'#app',
+    data: {
+      products :["monitör", "klavye", "askı", "masa"],
+      persons : [
+        {name : "merve", email : "merdem@gmail.com"},
+        { name:"nur", email :"nurdem@gmail.com"},
+        { name : "müne",  email: "müne@gmail.com"},
+
+      ]
+    }
+  })
+</script>
+</body>
+</html>

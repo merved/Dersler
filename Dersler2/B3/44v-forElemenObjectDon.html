@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/app.css">
+
+</head>
+<body class="p-5">
+
+<div id="app">
+<ul>
+  <li v-for="(product, index) in products">{{product}} - {{ index }}</li>
+</ul>
+  <div v-for="(product, index) in products">
+    <h3> {{ product }}</h3>
+    <p> {{ index }}</p>
+  </div>
+  <template v-for="(product, index) in products">
+    <h3> {{ product }}</h3>
+    <p> {{ index }}</p>
+
+  </template>
+
+  <ul>
+    <li v-for="personel in persons">
+    <!-- persons içerisindeki name i email i ayrı ayrı yazdırmak istersek -->
+  <ul>
+    <!--personelin içerisindeki itemları bana teker teker ver
+    (value, key) -> bunun içindeki isimlendirmeler bize ait -->
+    <li v-for="(value, key, index) in personel"><strong>{{ key }} </strong> : {{ value }}
+      {{ index }}
+
+    </li>
+    </ul>
+</li>
+  </ul>
+
+</div>
+<!--vue.js i script olarak sayfamıza ekliyoruz-->
+<script src ="../assets/js/vue.js"></script>
+<script>
+  const mrv= new Vue({
+    el:'#app',
+    data: {
+      products :["monitör", "klavye", "askı", "masa"],
+      persons : [
+        { name : "merve", email : "merdem@gmail.com"},
+        { name:"nur", email :"nurdem@gmail.com"},
+        { name : "müne",  email: "müne@gmail.com"},
+
+      ]
+    }
+  })
+</script>
+</body>
+</html>
