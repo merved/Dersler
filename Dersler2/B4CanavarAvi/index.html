@@ -13,7 +13,7 @@
         <div class="small-6 columns">
             <h1 class="text-center">SEN</h1>
             <div class="healthbar">
-                <div :style ="{width : player_heal + '%'}" class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
+                <div :style ="user_progress" class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
 <!-- bar değişikliği için app.css deki healthbar classındaki
 width property den değişiklik yapılır-->
                     {{ player_heal }} %
@@ -25,7 +25,7 @@ width property den değişiklik yapılır-->
             <div class="healthbar">
                 <!--style binding le width degeri dinamik olarak alınır
                  -->
-                <div :style ="{width : monster_heal + '%'}" class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
+                <div :style ="monster_progress" class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
             {{ monster_heal }} %
                 </div>
             </div>

@@ -20,7 +20,14 @@ new Vue({
         attack_multiple : 10,
         special_attack_multiple: 25,
         monster_attack_multiple : 25,
-        heal_up_multiple:20
+        heal_up_multiple:20,
+        log_text :{
+            attack :"OYUNCU ATAĞI : ",
+            special_attack : "ÖZEL OYUNCU ATAĞI : ",
+            monster_attack : "CANAVAR ATAĞI ",
+            heal_up:"İLK YARDIM ",
+            give_up : "OYUNCU PES ETTİ "
+        }
     },
     methods: {
         start_game: function () {
@@ -29,13 +36,13 @@ new Vue({
         attack: function () {
 // canavarın canını azaltma
 // point isminde değişken oluşturalım
-// point değişkenini virgülsüz elde etmek için ceil fonksşyonu kullanıldı.
+// point değişkenini virgülsüz elde etmek için ceil fonksiyonu kullanıldı.
 
             var point = Math.ceil(Math.random() * this.attack_multiple);
             this.monster_heal -= point;
             //saldırı edildikten sonra canavarda karşılık verdiği
             //için caavar metot çağrılır. Kendi canımdan da eksilme olur.
-            this.add_to_log({turn : "p", text: "oyuncu atağı("+ point + ")"})
+            this.add_to_log({turn : "p", text: this.log_text.attack + point})
             this.monster_attack();
             console.log("M : " + this.monster_heal);
             console.log("P : " + this.player_heal);
@@ -44,7 +51,7 @@ new Vue({
         speacial_attack: function () {
             var point = Math.ceil(Math.random() * this.special_attack_multiple);
             this.monster_heal -= point;
-            this.add_to_log({turn : "p", text: "özel oyuncu atağğı("+ point +")"})
+            this.add_to_log({turn : "p", text: this.log_text.special_attack + point})
             this.monster_attack();
             console.log("M: " + this.monster_heal);
             console.log("P: " + this.player_heal);
@@ -57,7 +64,7 @@ new Vue({
             this.monster_attack();
             console.log("M: " + this.monster_heal);
             console.log("P: " + this.player_heal);
-            this.add_to_log({turn : "p", text: "ilk yardım("+ point +")"})
+            this.add_to_log({turn : "p", text: this.log_text.heal_up + point})
 
         },
         //vazgeçmek
@@ -65,7 +72,7 @@ new Vue({
             this.player_heal = 0;
             console.log("M: " + this.monster_heal);
             console.log("P: " + this.player_heal);
-            this.add_to_log({turn : "p", text: "Oyuncu pes etti("+ point +")"})
+            this.add_to_log({turn : "p", text: this.log_text.give_up + point })
 
         },
         //biz saldırdığımız zaman canavar da karşılık verip saldırcak.
@@ -75,7 +82,7 @@ new Vue({
             // turn kısmında isimlendirmeyi m vermişiz bunun kontrolünü
             //index.html içindeki   :class="{ 'player-turn' : log.turn =='p', 'monster-turn' : log.turn =='m' }"
             //şeklinde vermişiz
-            this.add_to_log({turn : "m", text: "Canavar Atağı ("+ point +")"})
+            this.add_to_log({turn : "m", text: this.log_text.monster_attack + point} )
 
         },
         //log  diye bi tane obje tanımlarım
@@ -121,6 +128,20 @@ new Vue({
             else if (value >=100){
                 this.monster_heal=100;            }
         }
+    },
+    computed : {
+        user_progress :function (){
+            return{
+            width :this.player_heal + "%"
+            }
+        },
+        monster_progress : function (){
+            return{
+                width:this.monster_heal + "%"
+
+            }
+        }
+
     }
 })
 /*oyunun başlayıp başlamadıgını beli eden bi tane değişkenimiz olsun
